@@ -81,14 +81,22 @@
         </div>
 
         <div class="slide" id="intro-slide">
+          <style>
+            #intro-slide .imgtxt {
+                line-height: normal;
+                font-size: 22px;
+            }
+          </style>
           <section class="middle">
             <h3>Some facts..</h3>
             <div class="block" data-build>
               <ul>
-                  <li>2717 registered reindeer farmers</li>
-                  <li>from Nordkapp up north, to Hedmark down south</li>
-                  <li>slaughtering once a year, early autumn</li>
+                <li>2717 registered reindeer farmers</li>
+                <li>from Nordkapp up north, to Hedmark down south</li>
+                <li>slaughtering once a year, early autumn</li>
               </ul>
+              <img src="media/samiknife.png" width="770" height="244"/>
+              <div class="imgtxt">This is a sami knife that cut things.</div>
             </div>
           </section>
         </div>
@@ -185,7 +193,7 @@
 
         <div class="slide" id="tech-slide">
           <section class="middle">
-            <h3>Technology</h3>
+            <h2>Technology</h2>
             <ul class="block">
               <li>JavaScript</li>
               <li>HTML5 Web App</li>
@@ -279,12 +287,12 @@ el.ontouchmove = function (event) {
 
         <div class="slide" id="manifest-slide">
           <section class="middle">
-            <h3>cache.manifest</h3>
+            <h3>manifest.appcache</h3>
             <div class="block" data-cycle>
               <pre class="lang-js">
 
 &lt;!DOCTYPE HTML&gt;
-&lt;html manifest="/cache.manifest"&gt;
+&lt;html manifest="/manifest.appcache"&gt;
 &lt;body&gt;
 ...
               </pre>
@@ -298,7 +306,8 @@ index.html
 src/register.js
 
 NETWORK:
-*
+http://*
+https://*
               </pre>
             </div>
           </section>
@@ -313,6 +322,94 @@ NETWORK:
               <li>serve with MIME <em>text/cache-manifest</em></li>
               <li><strong>window.applicationCache</strong></li>
             </ul>
+          </section>
+        </div>
+
+        <div class="slide" id="leanOSSintro-slide">
+          <section class="middle">
+            <h2>Open Source Software Projects</h2>
+            <h3>and the</h3>
+            <h2>Lean Startup</h2>
+          </section>
+        </div>
+
+        <!--
+              <li>Main principles</li>
+              <li>ReindeerFinder</li>
+              <li>Discussion</li>
+         -->
+
+        <div class="slide" id="oreilly-slide">
+          <style>
+              #oreilly-slide .quote {
+                  font-style: italic;
+                  font-size: 30px;
+                  line-height: 150%;
+                  margin: 0 15px;
+              }
+              #oreilly-slide .quote .author {
+                  color: #666;
+              }
+              #oreilly-slide .quote .author:before {
+                  content: "--";
+              }
+          </style>
+          <section class="middle">
+            <blockquote class="quote">
+                'How can we learn more quickly what works,<br/>
+                and discard what doesn't?’
+                <div class="author">Tim O’Reilly on the Lean Startup</div>
+            </blockquote>
+          </section>
+        </div>
+
+        <div class="slide" id="principles-slide">
+          <section class="middle">
+            <h3>Main principles</h3>
+            <ul class="block" data-build>
+                <li>WORK SMARTER NOT HARDER</li>
+                <li>ELIMINATE UNCERTAINTY</li>
+                <li>DEVELOP AN MVP</li>
+                <li>VALIDATED LEARNING</li>
+                <li>ENTREPRENEURS ARE EVERWHERE</li>
+                <li>ENTREPRENEURSHIP IS MANAGEMENT</li>
+                <li>INNOVATION ACCOUNTING</li>
+                <li>BUILD-MEASURE-LEARN</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="slide" id="reindeerfinder-slide">
+          <section class="middle">
+            <h3>ReindeerFinder</h3>
+            <img src="media/touch_icon.png" width="100" height="100"/>
+          </section>
+        </div>
+
+        <div class="slide" id="pivot-slide">
+          <section class="middle">
+            <h3>"The Easy Pivot"</h3>
+            <img src="media/v1.png" width="486" height="430"/>
+          </section>
+        </div>
+
+        <div class="slide" id="measureOffline-slide">
+          <section class="middle">
+            <h3>Measuring an Offline Web App</h3>
+            <div data-build>
+              <p>
+                «Do you agree that Pål learn something about<br/>how you use this application?»
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div class="slide" id="hilfe-slide">
+          <section class="middle">
+            <h2>Disussion</h2>
+            <div data-build>
+              <h2>Hilfe, bitte!</h2>
+            </div>
           </section>
         </div>
 
@@ -341,9 +438,13 @@ NETWORK:
           </style>
           <section class="middle">
             <h2>That's all folks</h2>
-            <p class="resource-link"><span class="palru">Pål Ruud</span><br>
-              <a href="http://github.com/ruudud">github.com/ruudud</a><br>
-              <a href="http://twitter.com/ruudud">@ruudud</a>
+            <p class="resource-link">
+              <span class="palru">Pål Ruud</span><br/>
+              <a href="http://twitter.com/ruudud">@ruudud</a><br/>
+              <a href="http://github.com/ruudud">github.com/ruudud</a><br/>
+            </p>
+            <p class="resource-link">
+              <a href="http://rein.ligretto.no">rein.ligretto.no</a><br/>
             </p>
           </section>
         </div>
