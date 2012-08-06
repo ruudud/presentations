@@ -1,0 +1,353 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>An introduction to ZeroMQ</title>
+
+		<meta name="description" content="An introduction to ZeroMQ">
+		<meta name="author" content="Pål Ruud">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script>
+			// If the query includes print-pdf we'll use the fancy print CSS
+			document.write( '<link rel="stylesheet" href="css/' + (window.location.search.match( /print-pdf/gi ) ? 'print-pdf.css' : 'print.css') + '" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>ZeroMQ</h1>
+					<h3 class="inverted">An introduction</h3>
+                    <p>
+						<i><small>- Pål Ruud / <a href="http://twitter.com/ruudud">@ruudud</a></small></i>
+                    </p>
+					<script>
+						// Delicously hacky. Look away.
+						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+					</script>
+				</section>
+
+                <section>
+                    <section>
+                        <h2>What is ZeroMQ?</h2>
+                        <ol>
+                            <li class="fragment">Just another MQ</li>
+                            <li class="fragment">Aha, so it's just plain old sockets.</li>
+                            <li class="fragment">But messaging, isn't that a solved problem? (Maybe with ZeroMQ)</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>An asynchronous messaging library</li>
+                            <li>Act lice a concurrency framework</li>
+                            <li>Fast</li>
+                            <li>Used by banks for trading systems</li>
+                            <li>0MQ, ZMQ, ØMQ, ZeroMQ</li>
+                            <li>Don't need no Message Broker</li>
+                            <li>The API is similar to the socket API</li>
+                            <li>The same people that drafted AMQP created ZeroMQ</li>
+                            <li>Bindings to most/all languages</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Transport layer</h2>
+                        <ul>
+                            <li>TCP</li>
+                            <li>PGM (multicast)</li>
+                            <li>IPC (inter-process)</li>
+                            <li>ITC/INPROC (inter-thread)</li>
+                        </ul>
+                        <p>
+                            May have higher throughput than TCP because of
+                            <a href="http://www.zeromq.org/area:faq#toc3">message batching</a>.
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>The point of a messaging system</h2>
+                        <h3 class="fragment">$$$</h3>
+                    </section>
+
+                    <section>
+                        <p>
+                            Because a client may easily send work to more
+                            servers, you have a way of getting more horsepower
+                            without writing a lot of code.
+                        </p>
+                        <p class="fragment">
+                            Even poorly implemented code can have a new life
+                            with scaling by the assistance of the messaging
+                            middleware.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Design criteria in a messaging system</h2>
+                        <ul>
+                            <li>Whether messages are transferred reliably</li>
+                            <li>Whether messages are guaranteed to be delivered in order</li>
+                            <li>
+                                Whether messages are passed
+                                <ul>
+                                    <li>one-to-one (unicast)</li>
+                                    <li>one-to-many (multicast/broadcast)</li>
+                                    <li>many-to-one (client-server)</li>
+                                    <li>many-to-many</li>
+                                </ul>
+                            </li>
+                            <li>Whether communication is synchronous or asynchronous.</li>
+                        </ul>
+                        <p>
+                            <small>Source: <a href="https://en.wikipedia.org/wiki/Message_passing">Wikipedia</a></small>
+                        </p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <div class="valign">
+                            <h2>Message Patterns in ZeroMQ</h2>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Request-reply</h2>
+                        <p>
+                            <img src="img/reqrep.png"><br>
+                            <small>RPC and classic client-server</small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Publish-subscribe</h2>
+                        <p>
+                            <img src="img/pubsub.png"><br>
+                            <small>Data distribution</small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Push-pull (pipeline)</h2>
+                        <p>
+                            <img src="img/pushpull.png"><br>
+                        </p>
+                    </section>
+                </section>
+				
+                <section>
+                    <section>
+                        <h2 class="valign">The Broker/Queue</h2>
+                    </section>
+                    <section>
+                        <h2>Broker - Advantages</h2>
+                        <ul>
+                            <li class="fragment">Apps don't need to care about the whereabouts of other apps</li>
+                            <li class="fragment">Sender and receive lifetimes don't have to overlap</li>
+                            <li class="fragment">The app can fail if the broker has received the message</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Broker - Drawbacks</h2>
+                        <ul>
+                            <li>Excessive amount of network communication</li>
+                            <li>Can turn in to a bottleneck, or SPOF</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Brokers in ZeroMQ</h2>
+                        <p class="fragment" style="margin-top: 2em"><span class="underline">Zero</span> M Q</p>
+                        <p class="fragment">
+                            But that doesn't mean we can't create one.
+                        </p>
+                    </section>
+                    <section>
+                        <img src="img/reqrepbroker.png">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Example 1 - request and reply</h2>
+                        <pre><code class="python" contenteditable>
+ctx = zmq.Context()
+socket = ctx.socket(zmq.REQ)
+socket.setsockopt(zmq.IDENTITY, sys.argv[1])
+socket.connect("tcp://0.0.0.0:12345")
+
+while True:
+    socket.send("Hello from %s" % sys.argv[1])
+    print socket.recv() # Blocking
+                        </code></pre>
+                        <p>client.py</p>
+                    </section>
+
+                    <section>
+                        <pre><code class="python" contenteditable>
+ctx = zmq.Context()
+socket = ctx.socket(zmq.REP)
+socket.bind("tcp://*:12345")
+
+while True:
+    request = socket.recv() # Blocking
+    print 'Got message: %s' % request
+    time.sleep(.5)
+    socket.send('Hello world back at ya from the server')
+                        </code></pre>
+                        <p>server.py</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Example 2 - publish and subscribe</h2>
+                        <pre><code class="python" contenteditable>
+context = zmq.Context()
+socket = context.socket(zmq.PUB)
+socket.bind("tcp://*:5556")
+
+while True:
+    socket.send("Arsenal:red card")
+
+    time.sleep(1)
+                        </code></pre>
+                        <p>publisher.py</p>
+                    </section>
+
+                    <section>
+                        <pre><code class="python" contenteditable>
+context = zmq.Context()
+socket = context.socket(zmq.SUB)
+
+socket.connect ("tcp://localhost:5556")
+
+socket.setsockopt(zmq.SUBSCRIBE, 'Arsenal')
+
+while True:
+    string = socket.recv()
+    print string
+                        </code></pre>
+                        <p>subscriber.py</p>
+                    </section>
+                </section>
+
+				<section>
+					<h2>Links</h2>
+					<ul>
+                        <li><a href="http://zguide.zeromq.org/">Z guide</a></li>
+						<li><a href="https://github.com/ruudud/presentations/zeromq">Source code on github</a></li>
+					</ul>
+				</section>
+
+				<section>
+                    <img src="img/radioactive.png">
+                    <p>
+                        <small>High-level overview of ZeroMQ socket</small>
+                    </p>
+				</section>
+
+				<section>
+					<h2>Thanks!</h2>
+                    <p>
+						<i><small><a href="http://twitter.com/ruudud">@ruudud</a></small></i>
+                    </p>
+				</section>
+			</div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+
+		<script>
+			head.ready( function() {
+
+				// Fires when a slide with data-state=customevent is activated
+				Reveal.addEventListener( 'customevent', function() {
+					console.log( '"customevent" has fired' );
+				} );
+
+				// Fires each time a new slide is activated
+				Reveal.addEventListener( 'slidechanged', function( event ) {
+					// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				} );
+
+				// Full list of configuration options available here:
+				// https://github.com/hakimel/reveal.js#configuration
+				Reveal.initialize({
+					controls: true,
+					progress: true,
+					history: true,
+					
+					theme: Reveal.getQueryHash().theme || 'default', // default/neon/beige
+					transition: Reveal.getQueryHash().transition || 'default' // default/cube/page/concave/linear(2d)
+				});
+
+				// Load highlight.js for syntax highlighting of code samples
+				head.js( 'lib/js/highlight.js', function() { 
+					hljs.initHighlightingOnLoad(); 
+				} );
+
+			} );
+
+			// Scripts that should be loaded before initializing
+			var scripts = [];
+
+			// If the browser doesn't support classList, load a polyfill
+			if( !document.body.classList ) {
+				head.js( 'lib/js/classList.js' );
+			}
+
+			// Load markdown parser if there are slides defined using markdown
+			if( document.querySelector( '[data-markdown]' ) ) {
+				scripts.push( 'lib/js/showdown.js' );
+				scripts.push( 'lib/js/data-markdown.js' );
+			}
+
+			scripts.push( 'js/reveal.js' );
+
+			// If we're runnning the notes server we need to include some additional JS
+			// TODO Is there a better way to determine if we're running the notes server?
+			if( window.location.host === 'localhost:1947' ) {
+				scripts.push( 'socket.io/socket.io.js' );
+				scripts.push( 'plugin/speakernotes/client.js' );
+			}
+
+			// Load the scripts and, when completed, initialize reveal.js
+			head.js.apply( null, scripts );
+			
+		</script>
+
+	</body>
+</html>
