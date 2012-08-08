@@ -5,7 +5,7 @@ import zmq
 if __name__ == '__main__':
     ctx = zmq.Context()
     socket = ctx.socket(zmq.REQ)
-    socket.setsockopt(zmq.IDENTITY, sys.argv[1])
+#    socket.setsockopt(zmq.IDENTITY, sys.argv[1])
     socket.connect("tcp://0.0.0.0:12345")
 
     try:

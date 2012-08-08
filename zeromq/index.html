@@ -62,7 +62,7 @@
                     <section>
                         <ul>
                             <li>An asynchronous messaging library</li>
-                            <li>Act lice a concurrency framework</li>
+                            <li>Acts like a concurrency framework</li>
                             <li>Fast</li>
                             <li>Used by banks for trading systems</li>
                             <li>0MQ, ZMQ, ØMQ, ZeroMQ</li>
@@ -80,8 +80,8 @@
                             <li>IPC (inter-process)</li>
                             <li>ITC/INPROC (inter-thread)</li>
                         </ul>
-                        <p>
-                            May have higher throughput than TCP because of
+                        <p class="fragment" style="margin-top: 1em">
+                            <strong>Funfact:</strong> Can have higher throughput than TCP because of
                             <a href="http://www.zeromq.org/area:faq#toc3">message batching</a>.
                         </p>
                     </section>
@@ -90,7 +90,7 @@
                 <section>
                     <section>
                         <h2>The point of a messaging system</h2>
-                        <h3 class="fragment">$$$</h3>
+                        <h3 class="fragment" style="margin-top: 2em">$$$</h3>
                     </section>
 
                     <section>
@@ -109,9 +109,9 @@
                     <section>
                         <h2>Design criteria in a messaging system</h2>
                         <ul>
-                            <li>Whether messages are transferred reliably</li>
-                            <li>Whether messages are guaranteed to be delivered in order</li>
-                            <li>
+                            <li class="fragment grey">Whether messages are <strong>transferred reliably</strong></li>
+                            <li class="fragment grey">Whether messages are guaranteed to be <strong>delivered in order</strong></li>
+                            <li class="fragment grey">
                                 Whether messages are passed
                                 <ul>
                                     <li>one-to-one (unicast)</li>
@@ -120,7 +120,7 @@
                                     <li>many-to-many</li>
                                 </ul>
                             </li>
-                            <li>Whether communication is synchronous or asynchronous.</li>
+                            <li class="fragment grey">Whether communication is <strong>synchronous</strong> or <strong>asynchronous</strong>.</li>
                         </ul>
                         <p>
                             <small>Source: <a href="https://en.wikipedia.org/wiki/Message_passing">Wikipedia</a></small>
@@ -164,7 +164,7 @@
                         <h2>Broker - Advantages</h2>
                         <ul>
                             <li class="fragment">Apps don't need to care about the whereabouts of other apps</li>
-                            <li class="fragment">Sender and receive lifetimes don't have to overlap</li>
+                            <li class="fragment">Sender and receiver lifetimes don't have to overlap</li>
                             <li class="fragment">The app can fail if the broker has received the message</li>
                         </ul>
                     </section>
@@ -193,7 +193,6 @@
                         <pre><code class="python" contenteditable>
 ctx = zmq.Context()
 socket = ctx.socket(zmq.REQ)
-socket.setsockopt(zmq.IDENTITY, sys.argv[1])
 socket.connect("tcp://0.0.0.0:12345")
 
 while True:
@@ -204,6 +203,7 @@ while True:
                     </section>
 
                     <section>
+                        <h2>Example 1 - request and reply</h2>
                         <pre><code class="python" contenteditable>
 ctx = zmq.Context()
 socket = ctx.socket(zmq.REP)
@@ -236,6 +236,7 @@ while True:
                     </section>
 
                     <section>
+                        <h2>Example 2 - publish and subscribe</h2>
                         <pre><code class="python" contenteditable>
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
@@ -256,7 +257,8 @@ while True:
 					<h2>Links</h2>
 					<ul>
                         <li><a href="http://zguide.zeromq.org/">Z guide</a></li>
-						<li><a href="https://github.com/ruudud/presentations/zeromq">Source code on github</a></li>
+						<li><a
+                            href="https://github.com/ruudud/presentations/zeromq">Source code of examples on github</a></li>
 					</ul>
 				</section>
 
