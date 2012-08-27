@@ -17,4 +17,6 @@ http://ruudud.github.com/presentations/zeromq
 
 # `git rebase` demystified
 
+http://ruudud.github.com/presentations/git-rebase-demystified/presentation.pdf
+
 In Norwegian.
