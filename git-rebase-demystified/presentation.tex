@@ -99,8 +99,10 @@
     \begin{beamercolorbox}[ignorebg]{inverted}
     \begin{center}
         \Huge{git rebase}\\
+        \vspace{0.5cm}
+        \large{\emph{ta kontrollen over historien}}\\
         \vspace{1cm}
-        \large{\emph{ta kontrollen over historien}}
+        \small{Pål Ruud - JavaZone 13. sep 2012}
     \end{center}
     \end{beamercolorbox}%
 \end{frame}
@@ -120,6 +122,8 @@
     \setbeamercovered{invisible}
     \begin{center}
         \texttt{Merge made by the 'recursive' strategy.}\\
+        \pause
+        ..ti ganger etterhverandre.
         \medskip
         \pause
         \includegraphics[scale=0.7]{merge_commits.jpg}
@@ -158,21 +162,25 @@
 
 \begin{frame}{Hva er galt med \texttt{merge}?}
     \begin{itemize}
-        \item<1-> Historien blir grusom å lese
-        \item<2-> Verktøy som \texttt{git bisect} blir forvirret
-        \item<3-> \emph{Semantisk} riktig?
+        \item<1-1> Historien blir grusom å lese
+        \item<2-2> Verktøy som \texttt{git bisect} blir forvirret
+        \item<3-3> \emph{Semantisk} riktig?
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Løsningen}
+    \setbeamercovered{invisible}
     \begin{center}
-        Vi vil simulere seriell utvikling ved hjelp av \texttt{rebase}!
+        Vi vil simulere seriell utvikling ved hjelp av \texttt{rebase}!\\
+        \medskip
+        \pause
+        (Og kun kjøre \texttt{merge} når vi selv vil.)
     \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{\texttt{man git-rebase}}
     \setbeamercovered{invisible}
-    \begin{lstlisting}[language=bash]
+    \begin{lstlisting}[]
 git-rebase - Forward-port local commits to the updated upstream head
     \end{lstlisting}
     \medskip
@@ -181,7 +189,11 @@ git-rebase - Forward-port local commits to the updated upstream head
 \end{frame}
 
 \begin{frame}{Hva er \texttt{rebase}?}
-    \emph{``Ta mine nyeste commits, og legg dem oppå det treet der.''}
+    \setbeamercovered{invisible}
+    \emph{``Ta mine nyeste commits, og legg dem oppå det treet der.''}\\
+    \pause
+    \bigskip
+    \emph{``Jeg vil flytte det punktet jeg branchet ut ifra til et nytt sted.''}
 \end{frame}
 
 \begin{frame}{Hva er \texttt{rebase}?}
@@ -206,8 +218,8 @@ git-rebase - Forward-port local commits to the updated upstream head
        $ git cat-file -p HEAD
        tree 9724058020812154185e7feeed04cb0a8def91d0
        parent 6a72980c6e7010c4687ba65721314d2404047442
-       author Pål Ruud <ruudud@gmail.com> 1346090316 +0200
-       committer Pål Ruud <ruudud@gmail.com> 1346090316 +0200
+       author Pål Ruud <pal.ruud@iterate.no> 1346090316 +0200
+       committer Pål Ruud <pal.ruud@iterate.no> 1346090316 +0200
 
        La til Java-plugin i gradle conf
     \end{lstlisting}
@@ -215,12 +227,18 @@ git-rebase - Forward-port local commits to the updated upstream head
 
 \begin{frame}{Farlig?}
     \setbeamercovered{invisible}
-    Om du rebaser (les: endrer) en commit som ligger sentralt, vil andre som
-    har basert arbeid på denne committen bli svært forvirret.\\
+    Om du rebaser (les: endrer) en commit som ligger sentralt,\\
+    vil andre som har basert arbeid på denne committen bli svært forvirret.\\
     \pause
     \bigskip
     \begin{center}
         SÅ IKKE GJØR DET!!1
+    \end{center}
+\end{frame}
+
+\begin{frame}{Tilbake til det første eksempelet ...}
+    \begin{center}
+        \includegraphics[scale=0.7]{1.png}
     \end{center}
 \end{frame}
 
@@ -280,6 +298,79 @@ git-rebase - Forward-port local commits to the updated upstream head
     \end{enumerate}
 \end{frame}
 
-% TODO: fem stykker jobber på samme featurebranch og må dele arbeid. rebasing?
+\begin{frame}{Det er ingen skam å merge...}
+    \setbeamercovered{invisible}
+    En lineær historie er fint og flott, men noen ganger gir en merge mening.\\
+    \pause
+    \medskip
+    (GitHub lager f.eks. uansett en merge-commit ved lukking av pull request.)
+\end{frame}
+
+\begin{frame}{Bonus: \texttt{--interactive}}
+    \begin{center}
+        \includegraphics[scale=0.7]{6.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Bonus: \texttt{--interactive}}
+    \setbeamercovered{invisible}
+    \begin{lstlisting}[language=bash]
+      $ git rebase -i master
+    \end{lstlisting}
+    \begin{lstlisting}[language=bash]
+pick d342350 wip: dok bygging                             
+pick f2b87af skrev litt til dok om bygg                   
+pick ee73047 La til avhengighet for bygg                  
+                                                          
+# Rebase 923acc0..ee73047 onto 923acc0                    
+#                                                         
+# Commands:                                               
+#  p, pick = use commit                                   
+#  r, reword = use commit, but edit the commit message    
+#  e, edit = use commit, but stop for amending            
+#  s, squash = use commit, but meld into previous commit
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Bonus: \texttt{--interactive}}
+    \setbeamercovered{invisible}
+    \begin{lstlisting}[language=bash]
+pick ee73047 La til avhengighet for bygg                  
+pick d342350 wip: dok bygging                             
+squash f2b87af skrev litt til dok om bygg                   
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Bonus: \texttt{--interactive}}
+    \setbeamercovered{invisible}
+    \begin{lstlisting}[language=bash]
+# This is a combination of 2 commits.                     
+# The first commit's message is:                          
+                                                          
+wip: dok bygging                                          
+                                                          
+# This is the 2nd commit message:                         
+                                                          
+skrev litt til dok om bygg 
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Bonus: \texttt{--interactive}}
+    \begin{center}
+        \includegraphics[scale=0.7]{7.png}
+    \end{center}
+\end{frame}
+
+\setbeamercolor{background canvas}{bg=iterateblue}
+\begin{frame}
+    \begin{beamercolorbox}[ignorebg]{inverted}
+    \begin{center}
+        \Huge{git rebase - ta kontrollen over historien}\\
+        \vspace{1cm}
+        \large{@ruudud \\ https://github.com/ruudud}
+    \end{center}
+    \end{beamercolorbox}%
+\end{frame}
+\setbeamercolor{background canvas}{bg=white}
 
 \end{document}
