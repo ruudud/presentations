@@ -1,0 +1,283 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>An introduction to ZeroMQ</title>
+
+		<meta name="description" content="An introduction to ZeroMQ">
+		<meta name="author" content="Pål Ruud">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script>
+			// If the query includes print-pdf we'll use the fancy print CSS
+			document.write( '<link rel="stylesheet" href="css/' + (window.location.search.match( /print-pdf/gi ) ? 'print-pdf.css' : 'print.css') + '" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                <h1>grunt and fabric</h1>
+                <p>
+                <br>
+                </p>
+                <p>From the web developer's toolbox</p>
+                <p>
+                <br>
+                </p>
+                <p>
+                <br>
+                </p>
+                <p>
+                <a href="http://github.com/ruudud">github.com/ruudud</a>
+                </p>
+                </section>
+                <section>
+                <section>
+                <h2>
+                    <br>
+                </h2>
+                <h2>
+                    <br>
+                </h2>
+                <h2>
+                    <img src="http://s3.amazonaws.com/uploads.uservoice.com/logo/design_setting/115438/original/rein4.png">
+                    <br>
+                </h2>
+                </section>
+                <section>
+                <h2>
+                    <a href="http://rein.ligretto.no/">
+                        <br>
+                    </a>
+                </h2>
+                <div>
+                    <a href="javascript:nicTemp();">
+                        <br>
+                    </a>
+                </div>
+                <div>
+                    <a href="javascript:nicTemp();">
+                        <br>
+                    </a>
+                </div>
+                <div>
+                    <a href="javascript:nicTemp();">
+                        <br>
+                    </a>
+                </div>
+                <div>
+                    <a href="javascript:nicTemp();">
+                        <br>
+                    </a>
+                </div>
+                <h3>
+                    <a href="javascript:nicTemp();">rein.ligretto.no</a>
+                </h3>
+                </section>
+                </section>
+                <section>
+                <h2>Everyday tasks</h2>
+                <div>
+                    <ol>
+                        <li>Run unit tests when files change</li>
+                        <li>Do static code checks</li>
+                    </ol>
+                </div>
+                </section>
+                <section>
+                <h2>Prepare for relase</h2>
+                <div>
+                    <br>
+                </div>
+                <div>
+                    <ol>
+                        <li>Make sure all is good (tests)</li>
+                        <li>Pre-compile client-side templates</li>
+                        <li>Concatenate and minify JavaScript</li>
+                        <li>&nbsp; &nbsp; &nbsp;------------||------------ &nbsp; &nbsp; CSS</li>
+                        <li>HTML: Add analytics ++</li>
+                    </ol>
+                </div>
+                </section>
+                <section>
+                <h2>Release aka ship it</h2>
+                <div>
+                    <br>
+                </div>
+                <div>
+                    <ol>
+                        <li>Bump version</li>
+                        <li>Upload package</li>
+                        <li>Set <i>last good version</i>
+                        </li>
+                        <li>Set <i>active version</i>&nbsp;aka <i>the </i>switcharoo</li>
+                    </ol>
+                    <div style="text-align: left;">
+                        <br>
+                    </div>
+
+                </div>
+                <div style="text-align: center;">
+                    <i>Bonus: rollback</i>
+                </div>
+                <div style="text-align: center;">
+                    <ol>
+                        <li style="text-align: center;">Set <i>active version</i> to <i>last good version</i>
+                        </li>
+                    </ol>
+                    <p>
+                    </p>
+                </div>
+
+                </section>
+                <section>
+                <section>
+                <h2>Grunt</h2>
+                <div>
+                    <img src="http://gruntjs.com/img/logo.png">
+                    <br>
+                </div>
+                </section>
+                <section>
+                <h2>Grunt</h2>
+                <p>
+                <br>task-based command line build tool</p>
+                <p>&nbsp;for JavaScript projects</p>
+                </section>
+                <section>
+                <h2>Grunt</h2>
+                <div>
+                    <br>
+                </div>
+                <div>
+                    <ul>
+                        <li>155 plugins<br>
+                        </li>
+                        <li>easy to write own plugins</li>
+                    </ul>
+                </div>
+                </section>
+                </section>
+                <section>
+                <section>
+                <h2>Fabric</h2>
+                <div>
+                    <br>
+                </div>
+                <div>Simple, Pythonic&nbsp;</div>
+                <div>remote execution and deployment</div>
+                </section>
+                <section>
+                <h2>
+                    <br>
+                </h2>
+<pre>from fabric.api import run
+
+def who():
+    run('whoami')
+</pre>
+
+
+
+                </section>
+                </section>
+            </div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+
+		<script>
+			head.ready( function() {
+
+				// Fires when a slide with data-state=customevent is activated
+				Reveal.addEventListener( 'customevent', function() {
+					console.log( '"customevent" has fired' );
+				} );
+
+				// Fires each time a new slide is activated
+				Reveal.addEventListener( 'slidechanged', function( event ) {
+					// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				} );
+
+				// Full list of configuration options available here:
+				// https://github.com/hakimel/reveal.js#configuration
+				Reveal.initialize({
+					controls: true,
+					progress: true,
+					history: true,
+					
+					theme: Reveal.getQueryHash().theme || 'default', // default/neon/beige
+					transition: Reveal.getQueryHash().transition || 'default' // default/cube/page/concave/linear(2d)
+				});
+
+				// Load highlight.js for syntax highlighting of code samples
+				head.js( 'lib/js/highlight.js', function() { 
+					hljs.initHighlightingOnLoad(); 
+				} );
+
+			} );
+
+			// Scripts that should be loaded before initializing
+			var scripts = [];
+
+			// If the browser doesn't support classList, load a polyfill
+			if( !document.body.classList ) {
+				head.js( 'lib/js/classList.js' );
+			}
+
+			// Load markdown parser if there are slides defined using markdown
+			if( document.querySelector( '[data-markdown]' ) ) {
+				scripts.push( 'lib/js/showdown.js' );
+				scripts.push( 'lib/js/data-markdown.js' );
+			}
+
+			scripts.push( 'js/reveal.js' );
+
+			// If we're runnning the notes server we need to include some additional JS
+			// TODO Is there a better way to determine if we're running the notes server?
+			if( window.location.host === 'localhost:1947' ) {
+				scripts.push( 'socket.io/socket.io.js' );
+				scripts.push( 'plugin/speakernotes/client.js' );
+			}
+
+			// Load the scripts and, when completed, initialize reveal.js
+			head.js.apply( null, scripts );
+			
+		</script>
+
+	</body>
+</html>
