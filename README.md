@@ -1,3 +1,10 @@
+# Backbone Marionette
+
+http://ruudud.github.com/presentations/marionette
+
+Views in a large-scale Backbone app demands conventions and structure. Get some
+for free with [Backbone Marionette](http://marionettejs.com/).
+
 # Reindeer
 
 http://ruudud.github.com/presentations/rein

@@ -1,0 +1,281 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Backbone Marionette</title>
+
+		<meta name="description" content="JavaScript course">
+		<meta name="author" content="Pål Ruud">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <style>
+      .reveal .push {
+        margin-top: 30px;
+      }
+    </style>
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+		<section>
+      <h4>Structuring Backbone Apps With</h4>
+			<h1>Marionette</h1>
+			<h3 class="inverted">@ruudud</h3>
+			<script>
+				// Delicously hacky. Look away.
+				if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+			</script>
+		</section>
+
+    <section>
+      <h2>Outline</h2>
+      <ol>
+        <li>The problems</li>
+        <li>Marionette (<em>aka the solution</em>)</li>
+        <li>Examples</li>
+      </ol>
+    </section>
+
+    <section>
+      <section>
+        <h1>The problems</h1>
+      </section>
+      <section>
+        <h2>What are Views in Backbone?</h2>
+        <ul>
+          <li>Mostly Conventions (API)</li>
+          <li class="fragment">DOM Events</li>
+        </ul>
+        <h3 class="fragment push">and that's basically it.</h3>
+      </section>
+      <section>
+        <h2>Many questions unanswered</h2>
+        <ul>
+          <li>How do I fit these pieces together?</li>
+          <li>How do I scale this?</li>
+          <li>Memory management?</li>
+          <li>How do I start the app?</li>
+        </ul>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Backbone Marionette</h2>
+        <ul>
+          <li>Composite application library</li>
+          <li>Collection of common design patterns found in BB apps</li>
+          <li>Excellent Memory Management</li>
+        </ul>
+      </section>
+      <section>
+        <h2>View Abstractions</h2>
+        <ul>
+          <li>ItemView</li>
+          <li>CollectionView</li>
+          <li>CompositeView</li>
+          <li>Layout (with Regions)</li>
+        </ul>
+      </section>
+      <section>
+        <h2>ItemView</h2>
+        <p>Render a model using template:</p>
+        <pre><code class="javascript" contenteditable>
+MyItemView = Marionette.ItemView.extend({
+  template: _.template('Hello, <%= name %>')
+});
+
+new MyItemView({ model: … }).render();
+        </code></pre>
+      </section>
+      <section>
+        <h2>CollectionView</h2>
+        <p>Loop through collection, render an ItemView per model:</p>
+        <pre><code class="javascript" contenteditable>
+MyCollectionView = Marionette.CollectionView.extend({
+  itemView: MyItemView
+});
+
+new MyCollectionView({ collection: … }).render();
+        </code></pre>
+      </section>
+      <section>
+        <h2>CompositeView</h2>
+        <p>Loop through collection, ItemView per model, with context:</p>
+        <pre><code class="javascript" contenteditable>
+MyCompositeView = Marionette.CompositeView.extend({
+  template: _.template('&lt;thead&gt;…&lt;&#x2F;thead&gt;&lt;tbody&gt;&lt;&#x2F;tbody&gt;'),
+  itemViewContainer: 'tbody',
+  itemView: MyItemView
+});
+
+new MyCompositeView({ collection: … }).render();
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Layout / Region</h2>
+        <pre><code class="javascript" contenteditable>
++--------------------------------------+
+| &lt;img src="logo.png"&gt; etc             |
++--------------------------------------+
+| &lt;div id="menu-bar"&gt;&lt;/div&gt;            |
++--------------------------------------+
+| &lt;div id="main-content"&gt;              |
+|                                      |
+|                                      |
+| &lt;/div&gt;                               |
++--------------------------------------+
+| &lt;footer&gt;copyright statement&lt;/footer&gt; |
++--------------------------------------+
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Layout / Region</h2>
+        <pre><code class="javascript" contenteditable>
+MyLayout = Marionette.Layout.extend({
+  template: "#my-layout-template",
+
+  regions: {
+    menu: "#menu-bar",
+    content: "#main-content"
+  } 
+});
+
+layout = new MyLayout();
+layout.render();
+
+layout.menu.show(new MenuView());
+layout.content.show(new ContentView());
+        </code></pre>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>The Application Object</h2>
+        <p>Allows to add further abstraction levels as necessary.</p>
+        <pre><code class="javascript" contenteditable>
+MyApp = new Backbone.Marionette.Application();
+MyApp.addRegions({
+  mainRegion: "#main"
+});
+
+var layout = new AppLayout();
+MyApp.mainRegion.show(layout);
+
+layout.show(new MenuView());
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>The Application Object</h2>
+        <p>You can also add function to be called on startup:</p>
+        <pre><code class="javascript" contenteditable>
+MyApp.addInitializer(function(options){
+  new MyAppRouter();
+  Backbone.history.start();
+});
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>The Application Object</h2>
+        <p>The app object also has an event bus (called <em>vent</em>):</p>
+        <pre><code class="javascript" contenteditable>
+MyApp.vent.on("foo", function(){
+  alert("bar");
+});
+
+MyApp.vent.trigger("foo");
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>The Application Object</h2>
+        <p>And, finally, to start the damn thing:</p>
+        <pre><code class="javascript" contenteditable>
+options = { foo: "bar" };
+
+MyApp.start(options);
+        </code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h2>Other stuff</h2>  
+      <ul>
+        <li>modelEvents</li>
+        <li class="fragment">collectionEvents</li>
+        <li class="fragment">emptyView</li>
+        <li class="fragment">ui</li>
+      </ul>
+    </section>              
+
+    <section>
+      <h2>Resources</h2>
+      <ul>
+        <li><a href="http://marionettejs.com/">marionettejs.com</a></li>
+        <li>Smashing Magazine: A Thorough Introduction To Backbone.Marionette</li>
+      </ul>
+    </section>
+
+</div>
+			
+</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
