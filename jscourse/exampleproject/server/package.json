@@ -1,0 +1,17 @@
+{
+    "author": "Pål Ruud",
+    "name": "jscourse server",
+    "description": "Simple RESTish API",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ruudud/jscourse"
+    },
+    "engines": {
+        "node": "~0.6.10 || 0.8 || 0.9"
+    },
+    "dependencies": {
+        "express": ">= 3.0.0rc2",
+        "validator": "0.4.13"
+    }
+}

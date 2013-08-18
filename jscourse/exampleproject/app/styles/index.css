@@ -1,0 +1,37 @@
+/*-- Application stylesheets. -----------------------------------------------*/
+
+h2 {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.listItemTitle {
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.listItem {
+	float: left;
+	margin-left: 20px;
+	max-width: 190px;
+}
+.listItem img {
+  width: 190px;
+  height: 267px;
+}
+
+.inset {
+	padding: 10px;
+}
+.island {
+	margin: 20px;
+	overflow: auto;
+	background: -webkit-linear-gradient(top, whitesmoke, #fff);
+	border-radius: 5px;
+}
+
+.floatedLeft {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}

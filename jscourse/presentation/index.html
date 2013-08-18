@@ -1,0 +1,294 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>JavaScript Course</title>
+
+		<meta name="description" content="JavaScript course">
+		<meta name="author" content="Pål Ruud">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+		<section>
+      <h4>Modern</h4>
+			<h1>Frontend Development</h1>
+			<h3 class="inverted">Giving structure to JavaScript</h3>
+			<script>
+				// Delicously hacky. Look away.
+				if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+			</script>
+		</section>
+
+    <section>
+      <h2>Outline</h2>
+      <ol>
+        <li>JavaScript fundamentals</li>
+        <li>Manipulating the DOM</li>
+        <li>Workflow</li>
+        <li>Creating something useful</li>
+      </ol>
+    </section>
+
+    <section>
+      <section>
+        <h2>JavaScript fundamentals</h2>
+        <ol>
+          <li>Data types</li>
+          <li>Control structures</li>
+          <li>Functions</li>
+          <li>Important concepts</li>
+          <li>WTF JS</li>
+        </ol>
+        <p class="fragment" style="margin-top: 1em">Open up <a href="http://repl.it/">http://repl.it/</a></p>
+      </section>
+      <section>
+        <h2>Data types</h2>
+        <ul>
+          <li class="fragment">
+            Primary: <a href="http://repl.it/">String</a>,
+            <a href="http://repl.it/HaB/1">Number</a>,
+            <a href="http://repl.it/">Boolean</a>
+          </li>
+          <li class="fragment">Composite: <a href="http://repl.it/Hly/1">Array, Object</a></li>
+          <li class="fragment">Special: null, undefined</li>
+          <li class="fragment"><a href="http://www.diveintojavascript.com/core-javascript-reference/the-regexp-object">(RegExp)</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Control structures</h2>
+        <ul>
+          <li class="fragment"><a href="http://repl.it/">if/else</a></li>
+          <li class="fragment"><a href="http://repl.it/H9h/1">for</a></li>
+          <li class="fragment"><a href="http://repl.it/H9r">while</a></li>
+          <li class="fragment"><a href="http://repl.it/H97">switch</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Functions</h2>
+        <ul>
+          <li class="fragment"><a href="http://repl.it/Haz">expression vs. declaration (anon. functions)</a></li>
+          <li class="fragment"><a href="http://repl.it/HjN">higher order</a></li>
+          <li class="fragment"><a href="http://repl.it/HjD">invocations</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Important concepts</h2>
+        <ul>
+          <li class="fragment"><a href="http://repl.it/Hlz">`this`</a></li>
+          <li class="fragment"><a href="http://repl.it/HaL/1">Implicit coercions</a></li>
+          <li class="fragment"><a href="http://repl.it/HaV/1">Variable scope + hoisting</a></li>
+          <li class="fragment"><a href="http://repl.it/Haf">Closure</a></li>
+          <li class="fragment"><a href="http://repl.it/HjX">The prototype chain</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2><a href="http://wtfjs.com/">http://wtfjs.com/</a></h2>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Manipulating the DOM</h2>
+        <ul>
+          <li class="fragment">Basic concepts</li>
+          <li class="fragment">jQuery / Zepto</li>
+        </ul>
+      </section>
+      <section>
+        <h2>The Document Object Model</h2>
+        <p>A W3C standard which lets you …
+        <ul>
+          <li class="fragment">discover elements</li>
+          <li class="fragment">change elements</li>
+          <li class="fragment">add and delete elements</li>
+        </ul>
+      </section>
+      <section>
+        <h2>DOM tree</h2>
+        <img width="500" src="gfx/domtree.svg"/>
+      </section>
+      <section>
+        <h2>Getting an element</h2>
+        <pre><code class="javascript" contenteditable>
+var e = document.getElementById('myElement');
+
+var f = document.getElementsByTagName('div')[0];
+
+var g = document.getElementsByClassName('roundedBox')[0];
+        </code></pre>
+      </section>
+      <section>
+        <h2>Walking the DOM</h2>
+        <pre><code class="javascript" contenteditable>
+// Given HTML element `e`…
+
+e.parentNode
+e.childNodes[0]
+
+document.firstChild.firstChild.lastChild
+        </code></pre>
+      </section>
+      <section>
+        <h2>Manipulating</h2>
+        <pre><code class="javascript" contenteditable>
+document.firstChild.firstChild.nodeValue = 'some text';
+document.firstChild.setAttribute('id', 'myBox');
+
+document.firstChild.firstChild.style.color = '#f00';
+        </code></pre>
+      </section>
+      <section>
+        <h2>Adding</h2>
+        <pre><code class="javascript" contenteditable>
+var el = document.createElement('hr');
+document.getElementById('myBox').appendChild(el);
+        </code></pre>
+        <p class="fragment">Task: <a href="http://jsfiddle.net/hAjMC/">http://jsfiddle.net/hAjMC/</a></p>
+      </section>
+      <section>
+        <h2>jQuery / Zepto</h2>
+        <p>Why? Cleaner API, smush out browser differences ++</p>
+        <pre><code class="javascript" contenteditable>
+$.get('http://updates.html5rocks.com')
+  .success(function (data) {
+    $('#html5rocks').html(data);
+  })
+  .error(function () {
+    console.error('Could not connect to html5rocks.com');
+  });
+        </code></pre>
+        <p class="fragment"><a href="http://jsfiddle.net/KqUZ8/">More examples</a></p>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Workflow</h2>
+        <ul>
+          <li class="fragment">Static code checks -- <emph>linting</emph></li>
+          <li class="fragment">Modules / dependency management</li>
+          <li class="fragment">Testing</li>
+          <li class="fragment">Build process</li>
+        </ul>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h2>Let's create something</h2>
+        <ul>
+          <li>List movies</li>
+          <li>Client side search</li>
+        </ul>
+        <p class="fragment">…using Backbone.js</p>
+      </section>
+      <section>
+        <h2>Backbone.JS</h2>
+        <p>— a microframework</p>
+        <ul>
+          <li>models/collections</li>
+          <li>views</li>
+          <li>routers</li>
+          <li class="fragment">events, REST API friendly</li>
+        </ul>
+		<p><a href="http://backbonejs.org/">backbonejs.org</a></p>
+      </section>
+      <section>
+        <h2>Prerequisites</h2>
+        <ul>
+          <li>Node (with NPM)</li>
+          <li>Git</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Node Package Manager</h2>
+        <p><a href="http://nodejs.org/download/">http://nodejs.org/download/</a></p>
+        <pre><code class="bash" contenteditable>
+# OSX
+$ brew install node
+
+# Debian/Ubuntu
+$ sudo apt-get install python-software-properties
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs npm
+        </code></pre>
+      </section>
+      <section>
+        <h2>Git</h2>
+        <pre><code class="bash" contenteditable>
+# OSX
+$ brew install git
+
+# Debian/Ubuntu
+$ sudo apt-get install git
+        </code></pre>
+      </section>
+      <section>
+        <h2>Clone the example project and install dependencies</h2>
+        <pre><code class="bash" contenteditable>
+$ git clone git@github.com:ruudud/jscourse.git
+
+$ npm install -g grunt buster
+        </code></pre>
+      </section>
+    </section>
+</div>
+			
+</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
