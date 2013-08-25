@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Grunt: Bygging av JavaScript-prosjekter</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/iterate.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/github.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+				<section data-state="inverted">
+          <h3 style="margin-bottom: 40px;">Bygging av webapps med</h3>
+          <h1 style="margin-bottom: 60px;">Grunt</h1>
+					<p>
+						<a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Et "bygg" i et JS-prosjekt</h2>
+					<ul>
+            <li>Kjøring av tester og kodeanalyser</li>
+						<li class="fragment">CSS pre-prosessesering (SCSS, LESS…)</li>
+						<li class="fragment">Konkatenering</li>
+						<li class="fragment">Minifisering</li>
+						<li class="fragment">RequireJS</li>
+						<li class="fragment">Pakking</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Støtteverktøy</h2>
+					<ul>
+						<li>Autokjøring av tester</li>
+						<li>Linting og andre analyser</li>
+						<li>Lokal utviklingsserver</li>
+            <li>Bootstrapping av nye prosjekter</li>
+						<li>LiveReload</li>
+					</ul>
+				</section>
+
+				<section>
+          <img src="gfx/grunt-logo.png" border="0" />
+          <aside class="notes" data-markdown>
+            Så hva er grunt?
+
+            Grunt er et byggeverktøy, eller mer generelt: en task runner.
+
+            Det kan brukes til å løse alle oppgaver nevnt nettopp.
+            Det er skrevet i JavaScript og kjører ved hjelp av Node.
+
+            Grunt er plugin-basert, med flere «offisielle» plugins, i et stort
+            og stadig voksende økosystem.
+          </aside>
+				</section>
+
+				<section>
+					<h2>Installasjon av cli</h2>
+					<h3 class="pushdown">(Én gang, globalt)</h3>
+          <pre><code class="bash">
+$ npm install -g grunt-cli
+          </code></pre>
+        </section>
+
+				<section>
+					<h2>Installasjon av plugins</h2>
+					<h3 class="pushdown">(Per prosjekt)</h3>
+          <pre class="pushdown"><code class="bash">
+$ cd $MY_PROJECT
+$ npm install
+          </code></pre>
+          <div class="fragment">
+          <pre><code class="json">
+{
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-sass": "~0.2.2",
+    "grunt-zip": "~0.7.0",
+    "grunt": "~0.4.0"
+  }
+}
+          </code></pre>
+          <small><strong>package.json</strong></small>
+          </div>
+
+          <aside class="notes" data-markdown>
+            De som har jobbet med Node før vil kjenne igjen dette.  
+          </aside>
+        </section>
+
+				<section>
+					<h2>Gruntfile</h2>
+          <pre><code class="javascript">
+$ cd $MY_PROJECT
+$ npm install
+          </code></pre>
+        </section>
+
+				<section>
+					<h2>Grunt og MVN</h2>
+        </section>
+
+				<section>
+					<h2>Ressurser</h2>
+					<ul>
+						<li><a href="http://gruntjs.com">Gruntjs.com</a></li>
+						<li><a href="http://iter.at/grunt">iter.at/grunt</a></li>
+					</ul>
+				</section>
+
+				<section>
+          <!-- Hva er det jeg vil du skal sitte igjen med? -->
+          <img src="gfx/go.jpg"/>
+        </section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+        rollingLinks: false,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/leap/leap.js', async: true }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

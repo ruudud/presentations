@@ -10,6 +10,7 @@
 * Advanced Grunt tasks
   * Package for prod: replace HTML, JS/CSS refs, PNG optimize
   * Local dev server: Live reload
+* MVN and javascript 
 * Bonus tip: matchdep to load plugins
 * Bonus tip: creating plugins
 
