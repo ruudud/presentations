@@ -1,73 +1,73 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Grunt: Bygging av JavaScript-prosjekter</title>
+    <title>Grunt: Bygging av JavaScript-prosjekter</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/iterate.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/iterate.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/github.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<div class="slides">
-				<section data-state="inverted">
+      <div class="slides">
+        <section data-state="inverted">
           <h3 style="margin-bottom: 40px;">Bygging av webapps med</h3>
           <h1 style="margin-bottom: 60px;">Grunt</h1>
-					<p>
-						<a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
-					</p>
-				</section>
+          <p>
+            <a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
+          </p>
+        </section>
 
-				<section>
-					<h2>Et "bygg" i et JS-prosjekt</h2>
-					<ul>
+        <section>
+          <h2>Et "bygg" i et JS-prosjekt</h2>
+          <ul>
             <li class="fragment">Kjøring av tester og kodeanalyser</li>
-						<li class="fragment">Pre-prosessesering (SCSS, Jade, CoffeeScript…)</li>
-						<li class="fragment">Konkatenering</li>
-						<li class="fragment">Minifisering</li>
-						<li class="fragment">Pre-kompilering av templates</li>
-						<li class="fragment">RequireJS</li>
-						<li class="fragment">Pakking</li>
-					</ul>
-				</section>
+            <li class="fragment">Pre-prosessesering (SCSS, Jade, CoffeeScript…)</li>
+            <li class="fragment">Konkatenering</li>
+            <li class="fragment">Minifisering</li>
+            <li class="fragment">Pre-kompilering av templates</li>
+            <li class="fragment">RequireJS</li>
+            <li class="fragment">Pakking</li>
+          </ul>
+        </section>
 
-				<section>
-					<h2>Støtteverktøy</h2>
-					<ul>
-						<li>Autokjøring av tester</li>
-						<li>Linting og andre analyser</li>
-						<li>Lokal utviklingsserver</li>
+        <section>
+          <h2>Støtteverktøy</h2>
+          <ul>
+            <li>Autokjøring av tester</li>
+            <li>Linting og andre analyser</li>
+            <li>Lokal utviklingsserver</li>
             <li>Bootstrapping av nye prosjekter</li>
-						<li>LiveReload</li>
-					</ul>
-				</section>
+            <li>LiveReload</li>
+          </ul>
+        </section>
 
-				<section>
+        <section>
           <img src="gfx/grunt-logo.png" border="0" />
           <aside class="notes" data-markdown>
             Så hva er grunt?
@@ -80,9 +80,9 @@
             Grunt er plugin-basert, med flere «offisielle» plugins, i et stort
             og stadig voksende økosystem.
           </aside>
-				</section>
+        </section>
 
-				<section>
+        <section>
           <h1>Hvorfor?</h1>
           <aside class="notes" data-markdown>
             Måten man konfigurerer det på er beskrivende og fleksibelt.
@@ -92,19 +92,19 @@
 
             Mye moment rundt prosjektet, svær community.
           </aside>
-				</section>
+        </section>
 
-				<section>
-					<h2>Installasjon av cli</h2>
-					<h3 class="pushdown">(Én gang, globalt)</h3>
+        <section>
+          <h2>Installasjon av cli</h2>
+          <h3 class="pushdown">(Én gang, globalt)</h3>
           <pre><code class="bash">
 $ npm install -g grunt-cli
           </code></pre>
         </section>
 
-				<section>
-					<h2>Installasjon av plugins</h2>
-					<h3 class="pushdown">(Per prosjekt)</h3>
+        <section>
+          <h2>Installasjon av plugins</h2>
+          <h3 class="pushdown">(Per prosjekt)</h3>
           <pre class="pushdown"><code class="bash">
 $ cd $MY_PROJECT
 $ npm install
@@ -142,8 +142,8 @@ ruudud@murdoc:~/awesome-project$ tree
           </code></pre>
         </section>
 
-				<section>
-					<h2>Gruntfile</h2>
+        <section>
+          <h2>Gruntfile</h2>
           <pre><code class="javascript" data-trim>
 module.exports = function(grunt) {
 
@@ -177,8 +177,8 @@ Aborted due to warnings.
           </code></pre>
         </section>
 
-				<section>
-					<h2>Watch</h2>
+        <section>
+          <h2>Watch</h2>
           <pre><code class="javascript" data-trim>
 module.exports = function(grunt) {
 
@@ -198,12 +198,12 @@ module.exports = function(grunt) {
           </code></pre>
         </section>
 
-				<section>
-					<h1>Og så videre…</h1>
+        <section>
+          <h1>Og så videre…</h1>
         </section>
 
-				<section>
-					<h2>JavaScript og Maven</h2>
+        <section>
+          <h2>JavaScript og Maven</h2>
           <div class="fragment">
             <p>
               Eventuelt:<br/>
@@ -212,8 +212,8 @@ module.exports = function(grunt) {
           </div>
         </section>
 
-				<section>
-					<h2>Tre valg</h2>
+        <section>
+          <h2>Tre valg</h2>
           <ul>
             <li class="fragment">Bruke JavaScript-plugins til byggeverktøyet (Wro4j etc)</li>
             <li class="fragment">Bruke <em>exec</em> for å kjøre Grunt</li>
@@ -230,20 +230,21 @@ module.exports = function(grunt) {
           </aside>
         </section>
 
-				<section>
-					<h2>Ressurser</h2>
-					<ul>
-						<li><a href="http://gruntjs.com">Gruntjs.com</a></li>
-						<li><a href="http://iter.at/grunt">iter.at/grunt</a></li>
-						<li><a href="http://addyosmani.com/blog/making-maven-grunt/">Addy Osmani: Making Maven Grunt</a></li>
-					</ul>
-				</section>
+        <section>
+          <h2>Ressurser</h2>
+          <ul>
+            <li><a href="http://gruntjs.com">Gruntjs.com</a></li>
+            <li><a href="https://github.com/gruntjs/grunt">github.com/gruntjs/grunt</a></li>
+            <li><a href="http://iter.at/grunt">iter.at/grunt</a> - Gruntfile til inspirasjon</li>
+            <li><a href="http://addyosmani.com/blog/making-maven-grunt/">Addy Osmani: Making Maven Grunt</a></li>
+          </ul>
+        </section>
 
-				<section>
+        <section>
           <img src="gfx/go.jpg" class="pushdown"/>
-					<p>
-						<a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
-					</p>
+          <p>
+            <a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
+          </p>
           <aside class="notes" data-markdown>
           Hva er det jeg vil du skal sitte igjen med?
 
@@ -254,7 +255,27 @@ module.exports = function(grunt) {
         </section>
 
         <section>
-					<h2>Bonus: For de slappe</h2>
+          <h2>Bonus: Skrive egne tasks</h2>
+          <pre><code class="javascript" data-trim>
+module.exports = function(grunt) {
+
+  grunt.registerTask('readenv', function (key) {
+    var value = process.env[key];
+    if (value) {
+      grunt.log.ok(key + ' is ' + value);
+      grunt.config.set(key, value);
+    } else {
+      grunt.log.error(key + ' not set! This is required.');
+      return false;
+    }
+  });
+
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Bonus: For de slappe</h2>
           <pre><code class="javascript" data-trim>
 module.exports = function(grunt) {
 
@@ -270,42 +291,42 @@ module.exports = function(grunt) {
         </section>
 
 
-			</div>
+      </div>
 
-		</div>
+    </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
 
-		<script>
+    <script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: false,
-				progress: true,
-				history: true,
-				center: true,
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
         rollingLinks: false,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/leap/leap.js', async: true }
-					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/leap/leap.js', async: true }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
 
-		</script>
+    </script>
 
-	</body>
+  </body>
 </html>
