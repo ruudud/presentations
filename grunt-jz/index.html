@@ -46,10 +46,11 @@
 				<section>
 					<h2>Et "bygg" i et JS-prosjekt</h2>
 					<ul>
-            <li>Kjøring av tester og kodeanalyser</li>
-						<li class="fragment">CSS pre-prosessesering (SCSS, LESS…)</li>
+            <li class="fragment">Kjøring av tester og kodeanalyser</li>
+						<li class="fragment">Pre-prosessesering (SCSS, Jade, CoffeeScript…)</li>
 						<li class="fragment">Konkatenering</li>
 						<li class="fragment">Minifisering</li>
+						<li class="fragment">Pre-kompilering av templates</li>
 						<li class="fragment">RequireJS</li>
 						<li class="fragment">Pakking</li>
 					</ul>
@@ -82,6 +83,18 @@
 				</section>
 
 				<section>
+          <h1>Hvorfor?</h1>
+          <aside class="notes" data-markdown>
+            Måten man konfigurerer det på er beskrivende og fleksibelt.
+
+            Det gir mening å ha et byggeverktøy skrevet i samme språk som
+            prosjektet.
+
+            Mye moment rundt prosjektet, svær community.
+          </aside>
+				</section>
+
+				<section>
 					<h2>Installasjon av cli</h2>
 					<h3 class="pushdown">(Én gang, globalt)</h3>
           <pre><code class="bash">
@@ -97,7 +110,7 @@ $ cd $MY_PROJECT
 $ npm install
           </code></pre>
           <div class="fragment">
-          <pre><code class="json">
+          <pre><code class="json" data-trim>
 {
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
@@ -116,16 +129,105 @@ $ npm install
           </aside>
         </section>
 
-				<section>
-					<h2>Gruntfile</h2>
-          <pre><code class="javascript">
-$ cd $MY_PROJECT
-$ npm install
+        <section>
+          <h2>Eksempel</h2>
+          <pre><code class="bash">
+ruudud@murdoc:~/awesome-project$ tree
+.
+├── Gruntfile.js
+├── js
+│   └── mymodule
+│       └── foo.js
+└── package.json
           </code></pre>
         </section>
 
 				<section>
-					<h2>Grunt og MVN</h2>
+					<h2>Gruntfile</h2>
+          <pre><code class="javascript" data-trim>
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+
+    jshint: {
+      options: { eqeqeq: true },
+      all: [ 'Gruntfile.js', 'js/**/*.js' ]
+    }
+
+  });
+
+  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+
+};
+          </code></pre>
+        </section>
+
+        <section>
+          <pre><code class="bash">
+ruudud@murdoc:~/awesome-project$ grunt jshint
+
+Running "jshint:all" (jshint) task
+Linting js/mymodule/foo.js...ERROR
+[L4:C13] W116: Expected '===' and instead saw '=='.
+  if (blapp == true) {
+
+Warning: Task "jshint:all" failed. Use --force to continue.
+
+Aborted due to warnings.
+          </code></pre>
+        </section>
+
+				<section>
+					<h2>Watch</h2>
+          <pre><code class="javascript" data-trim>
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+    // …
+    watch: {
+      jshint: {
+        files: '<%= jshint.all %>',
+        tasks: ['jshint']
+      }
+    }
+  });
+
+  grunt.loadNpmTasks( 'grunt-contrib-watch' );
+  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+};
+          </code></pre>
+        </section>
+
+				<section>
+					<h1>Og så videre…</h1>
+        </section>
+
+				<section>
+					<h2>JavaScript og Maven</h2>
+          <div class="fragment">
+            <p>
+              Eventuelt:<br/>
+              <q>«JavaScript-appen min er inne i en server-side app.»</q>
+            </p>
+          </div>
+        </section>
+
+				<section>
+					<h2>Tre valg</h2>
+          <ul>
+            <li class="fragment">Bruke JavaScript-plugins til byggeverktøyet (Wro4j etc)</li>
+            <li class="fragment">Bruke <em>exec</em> for å kjøre Grunt</li>
+            <li class="fragment">Splitte opp prosjektet</li>
+          </ul>
+          <aside class="notes" data-markdown>
+            Wro4j: Ignorere alt av moderne tooling
+
+            Exec: Krever at utviklerne også må ha Node (kanskje greit)
+
+            Splitte: Behandle JS-app som en egen klient.
+
+            For nye prosjekter er valget enkelt.
+          </aside>
         </section>
 
 				<section>
@@ -133,12 +235,38 @@ $ npm install
 					<ul>
 						<li><a href="http://gruntjs.com">Gruntjs.com</a></li>
 						<li><a href="http://iter.at/grunt">iter.at/grunt</a></li>
+						<li><a href="http://addyosmani.com/blog/making-maven-grunt/">Addy Osmani: Making Maven Grunt</a></li>
 					</ul>
 				</section>
 
 				<section>
-          <!-- Hva er det jeg vil du skal sitte igjen med? -->
-          <img src="gfx/go.jpg"/>
+          <img src="gfx/go.jpg" class="pushdown"/>
+					<p>
+						<a href="http://ruudud.github.com/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a>
+					</p>
+          <aside class="notes" data-markdown>
+          Hva er det jeg vil du skal sitte igjen med?
+
+          1. Raskt å komme i gang
+          2. Enkelt å utvide med egne plugins
+          3. Man kan lett løse ethvert problem man kaster på det.
+          </aside>
+        </section>
+
+        <section>
+					<h2>Bonus: For de slappe</h2>
+          <pre><code class="javascript" data-trim>
+module.exports = function(grunt) {
+
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
+  grunt.initConfig({
+    // …
+  });
+
+  // Bort med loadNpmTasks 
+};
+          </code></pre>
         </section>
 
 
