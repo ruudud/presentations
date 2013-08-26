@@ -39,7 +39,7 @@ $selectionBackgroundColor: #26351C;
     border: 12px solid #E8E9EA;
     position: absolute;
     top: 0;
-    background-size: 50px 16px;
+    background-size: 75px 24px;
     background-image: url(../../gfx/iterate.png);
     background-position: 98% 5%;
     background-repeat: no-repeat;
@@ -66,7 +66,7 @@ $selectionBackgroundColor: #26351C;
   margin-bottom: 50px;
 }
 // Typically used on the initial slide, with a blue bg
-.inverted .reveal {
+.inverted .reveal, .print-pdf [data-state=inverted] {
   color: #FFF;
 
   a, h1, h2, h3, h4, h5, h6 {

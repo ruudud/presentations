@@ -1,5 +1,8 @@
-/* global module:false */
+/* global module,require,__dirname */
 module.exports = function(grunt) {
+
+	// Load dependencies specified in devDependencies in package.json
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	// Project configuration
 	grunt.initConfig({
@@ -13,11 +16,6 @@ module.exports = function(grunt) {
 				' *\n' +
 				' * Copyright (C) 2013 Hakim El Hattab, http://hakim.se\n' +
 				' */'
-		},
-
-		// Tests will be added soon
-		qunit: {
-			files: [ 'test/**/*.html' ]
 		},
 
 		uglify: {
@@ -109,25 +107,44 @@ module.exports = function(grunt) {
 
 	});
 
-	// Dependencies
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
-	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-contrib-sass' );
-	grunt.loadNpmTasks( 'grunt-contrib-connect' );
-	grunt.loadNpmTasks( 'grunt-zip' );
+	grunt.registerTask('pdfify', 'Creates a PDF of the presentation', function () {
+		grunt.task.requires('connect');
+
+		var path = require('path');
+		var childProcess = require('child_process');
+		var phantomjsBin = require('phantomjs').path;
+		var done = this.async();
+
+		var url = 'http://';
+		url += grunt.config('connect.server.options.hostname') || 'localhost';
+		url += ':' + grunt.config('connect.server.options.port');
+		url += '/index.html?print-pdf';
+
+		var args = [ path.join(__dirname, 'plugin/print-pdf/print-pdf.js'), url ];
+
+		childProcess.execFile(phantomjsBin, args, function(err, stdout, stderr) {
+			if (err) {
+				grunt.log.error('Error:', err);
+				done(false);
+			}
+			grunt.log.write(stdout);
+			done();
+		});
+	});
 
 	// Default task
-	grunt.registerTask( 'default', [ 'jshint', 'cssmin', 'uglify' ] );
+	grunt.registerTask('default', [ 'jshint', 'cssmin', 'uglify' ] );
 
 	// Theme task
-	grunt.registerTask( 'themes', [ 'sass' ] );
+	grunt.registerTask('themes', [ 'sass' ] );
+ 
+	// PDF task
+	grunt.registerTask('mkpdf', [ 'connect', 'pdfify' ] );
 
 	// Package presentation to archive
-	grunt.registerTask( 'package', [ 'default', 'zip' ] );
+	grunt.registerTask('package', [ 'default', 'zip' ] );
 
 	// Serve presentation locally
-	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
-
+	grunt.registerTask('serve', [ 'connect', 'watch' ] );
+	
 };

@@ -34,10 +34,8 @@ if( slideFile.match( /\.pdf$/gi ) === null ) {
 	slideFile += '.pdf';
 }
 
-console.log( 'Printing PDF...' );
-
 page.open( revealFile, function( status ) {
-	console.log( 'Printed succesfully' );
+  console.log('Creating PDF…');
 	page.render( slideFile );
 	phantom.exit();
 } );
