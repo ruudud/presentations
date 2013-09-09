@@ -45,14 +45,20 @@
 
         <section>
           <h2>Et "bygg" i et JS-prosjekt</h2>
+        </section>
+
+        <section>
+          <h3><q>En rekke oppgaver som kjøres før distribusjon / release</q></h3>
+        </section>
+          
+        <section>
           <ul>
-            <li class="fragment">Kjøring av tester og kodeanalyser</li>
-            <li class="fragment">Pre-prosessesering (SCSS, Jade, CoffeeScript…)</li>
-            <li class="fragment">Konkatenering</li>
-            <li class="fragment">Minifisering</li>
-            <li class="fragment">Pre-kompilering av templates</li>
-            <li class="fragment">RequireJS</li>
-            <li class="fragment">Pakking</li>
+            <li>Kjøring av tester og kodeanalyser</li>
+            <li>Pre-prosessesering (SCSS, Jade, CoffeeScript…)</li>
+            <li>Konkatenering</li>
+            <li>Minifisering</li>
+            <li>Pre-kompilering av templates</li>
+            <li>Pakking</li>
           </ul>
         </section>
 
@@ -85,12 +91,10 @@
         <section>
           <h1>Hvorfor?</h1>
           <aside class="notes" data-markdown>
-            Måten man konfigurerer det på er beskrivende og fleksibelt.
-
-            Det gir mening å ha et byggeverktøy skrevet i samme språk som
-            prosjektet.
-
-            Mye moment rundt prosjektet, svær community.
+            - Det gir mening å ha et byggeverktøy skrevet i samme språk som
+              prosjektet.
+            - Mye moment rundt prosjektet, svær community.
+            - Måten man konfigurerer det på er beskrivende og fleksibelt.
           </aside>
         </section>
 
@@ -114,7 +118,6 @@ $ npm install
 {
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-sass": "~0.2.2",
     "grunt-zip": "~0.7.0",
     "grunt": "~0.4.0"
@@ -132,7 +135,7 @@ $ npm install
         <section>
           <h2>Eksempel</h2>
           <pre><code class="bash">
-ruudud@murdoc:~/awesome-project$ tree
+[~/awesome-project]$ tree
 .
 ├── Gruntfile.js
 ├── js
@@ -146,7 +149,6 @@ ruudud@murdoc:~/awesome-project$ tree
           <h2>Gruntfile</h2>
           <pre><code class="javascript" data-trim>
 module.exports = function(grunt) {
-
   grunt.initConfig({
 
     jshint: {
@@ -155,23 +157,25 @@ module.exports = function(grunt) {
     }
 
   });
-
   grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-
 };
           </code></pre>
+          <aside class="notes" data-markdown>
+            Hva er JSHint og linting?
+          </aside>
         </section>
 
         <section>
-          <pre><code class="bash">
-ruudud@murdoc:~/awesome-project$ grunt jshint
+          <pre><code class="bash" data-trim>
+[~/awesome-project]$ grunt jshint
 
 Running "jshint:all" (jshint) task
 Linting js/mymodule/foo.js...ERROR
 [L4:C13] W116: Expected '===' and instead saw '=='.
   if (blapp == true) {
 
-Warning: Task "jshint:all" failed. Use --force to continue.
+Warning: Task "jshint:all" failed.
+Use --force to continue.
 
 Aborted due to warnings.
           </code></pre>
@@ -181,7 +185,6 @@ Aborted due to warnings.
           <h2>Watch</h2>
           <pre><code class="javascript" data-trim>
 module.exports = function(grunt) {
-
   grunt.initConfig({
     // …
     watch: {
@@ -191,15 +194,40 @@ module.exports = function(grunt) {
       }
     }
   });
-
-  grunt.loadNpmTasks( 'grunt-contrib-watch' );
-  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 };
           </code></pre>
         </section>
 
         <section>
-          <h1>Og så videre…</h1>
+          <h2>Tester</h2>
+          <pre><code class="javascript" data-trim>
+jasmine: {
+  all: {
+    src: 'src/**/*.js',
+    options: {
+      specs: 'spec/*Spec.js',
+      helpers: 'spec/*Helper.js'
+    }
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>contrib-plugins</h2>
+          <ul>
+            <li>coffee</li>
+            <li>SASS / Compass / LESSCss / Stylus</li>
+            <li>concat</li>
+            <li>copy / clean / move</li>
+            <li>compress</li>
+            <li>cssmin / htmlmin / imagemin / uglify</li>
+            <li>handlebars / jst / hogan ++</li>
+            <li>jade</li>
+            <li>qunit / buster / mocha / jasmine</li>
+            <li>yuidoc</li>
+            <li>…</li>
+          </ul>
         </section>
 
         <section>
@@ -257,39 +285,18 @@ module.exports = function(grunt) {
         <section>
           <h2>Bonus: Skrive egne tasks</h2>
           <pre><code class="javascript" data-trim>
-module.exports = function(grunt) {
-
-  grunt.registerTask('readenv', function (key) {
-    var value = process.env[key];
-    if (value) {
-      grunt.log.ok(key + ' is ' + value);
-      grunt.config.set(key, value);
-    } else {
-      grunt.log.error(key + ' not set! This is required.');
-      return false;
-    }
-  });
-
-};
+grunt.registerTask('readenv', function (key) {
+  var value = process.env[key];
+  if (value) {
+    grunt.log.ok(key + ' is ' + value);
+    grunt.config.set(key, value);
+  } else {
+    grunt.log.error('ENV variable missing: ' + key);
+    return false;
+  }
+});
           </code></pre>
         </section>
-
-        <section>
-          <h2>Bonus: For de slappe</h2>
-          <pre><code class="javascript" data-trim>
-module.exports = function(grunt) {
-
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
-  grunt.initConfig({
-    // …
-  });
-
-  // Bort med loadNpmTasks 
-};
-          </code></pre>
-        </section>
-
 
       </div>
 
