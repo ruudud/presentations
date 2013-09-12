@@ -138,9 +138,8 @@ $ npm install
 [~/awesome-project]$ tree
 .
 ├── Gruntfile.js
-├── js
-│   └── mymodule
-│       └── foo.js
+├── lib
+│   └── foo.js
 └── package.json
           </code></pre>
         </section>
@@ -153,7 +152,7 @@ module.exports = function(grunt) {
 
     jshint: {
       options: { eqeqeq: true },
-      all: [ 'Gruntfile.js', 'js/**/*.js' ]
+      all: [ 'Gruntfile.js', 'lib/**/*.js' ]
     }
 
   });
@@ -162,6 +161,8 @@ module.exports = function(grunt) {
           </code></pre>
           <aside class="notes" data-markdown>
             Hva er JSHint og linting?
+
+            Coercion
           </aside>
         </section>
 
@@ -170,7 +171,7 @@ module.exports = function(grunt) {
 [~/awesome-project]$ grunt jshint
 
 Running "jshint:all" (jshint) task
-Linting js/mymodule/foo.js...ERROR
+Linting lib/foo.js...ERROR
 [L4:C13] W116: Expected '===' and instead saw '=='.
   if (blapp == true) {
 
@@ -178,6 +179,21 @@ Warning: Task "jshint:all" failed.
 Use --force to continue.
 
 Aborted due to warnings.
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Tester</h2>
+          <pre><code class="javascript" data-trim>
+jasmine: {
+  all: {
+    src: 'lib/**/*.js',
+    options: {
+      specs: 'spec/*Spec.js',
+      helpers: 'spec/*Helper.js'
+    }
+  }
+}
           </code></pre>
         </section>
 
@@ -190,26 +206,11 @@ module.exports = function(grunt) {
     watch: {
       jshint: {
         files: '<%= jshint.all %>',
-        tasks: ['jshint']
+        tasks: ['jshint', 'jasmine']
       }
     }
   });
 };
-          </code></pre>
-        </section>
-
-        <section>
-          <h2>Tester</h2>
-          <pre><code class="javascript" data-trim>
-jasmine: {
-  all: {
-    src: 'src/**/*.js',
-    options: {
-      specs: 'spec/*Spec.js',
-      helpers: 'spec/*Helper.js'
-    }
-  }
-}
           </code></pre>
         </section>
 
@@ -261,9 +262,9 @@ jasmine: {
         <section>
           <h2>Ressurser</h2>
           <ul>
+            <li><a href="http://iter.at/grunt">iter.at/grunt</a><br/><br/></li>
             <li><a href="http://gruntjs.com">Gruntjs.com</a></li>
             <li><a href="https://github.com/gruntjs/grunt">github.com/gruntjs/grunt</a></li>
-            <li><a href="http://iter.at/grunt">iter.at/grunt</a> - Gruntfile til inspirasjon</li>
             <li><a href="http://addyosmani.com/blog/making-maven-grunt/">Addy Osmani: Making Maven Grunt</a></li>
           </ul>
         </section>
