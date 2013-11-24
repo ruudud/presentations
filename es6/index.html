@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>ES6</title>
+
+    <meta name="description" content="lyntale ES6">
+    <meta name="author" content="Pål Ruud">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/iterate.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="inverted">
+          <h1>ECMAScript 6</h1>
+          <h3>Comfort and magic</h3>
+          <p>
+            <small><a href="http://ruudud.github.io/">Pål Ruud</a> / <a href="http://twitter.com/ruudud">@ruudud</a></small>
+          </p>
+        </section>
+
+        <section>
+          <ul>
+            <li>No backwards incompatability</li>
+            <li>Purely additive</li>
+            <li>No <em>modes</em></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>In 10 minutes…</h2>
+          <ul>
+            <li>Rest and Spread expressions</li>
+            <li>Destructuring</li>
+            <li>Default arguments</li>
+            <li>Template strings</li>
+            <li>Arrow functions</li>
+            <li>Generators</li>
+            <li>Proxies</li>
+          </ul>
+        </section>
+        
+        
+        
+        <section>
+          <h2>Rest expression</h2>
+          <pre><code data-trim contenteditable>
+function bakeTheCake(flour, sugar, ...other) {
+  assert(Array.isArray(other));
+}
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Spread expression</h2>
+          <pre><code data-trim contenteditable>
+var dateFields = [2013, 12, 24];
+var myDate = new Date(...dateFields);
+
+var evenMoreSpecificDate = [...dateFields, 18, 20];
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Destructuring</h2>
+          <pre><code data-trim contenteditable>
+var [firstName, lastName] = person.getName();
+
+var re = /([a-z]+)(\s)(.*)([^a-z])/;
+var [, hello, space, world, bang] = re.exec("hello world!");
+
+var [first, ...allButFirst] = document.querySelectorAll("section");
+
+function runTests({ reporter, ui }) {}
+runTest({ reporter: "dot", ui: "tdd"})
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Default arguments</h2>
+          <pre><code data-trim contenteditable>
+var myFunc = function (size) {
+  size = size || 'XXL';
+};
+
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Template Strings</h2>
+          <pre><code data-trim contenteditable>
+var name = 'Han',
+var whenShot = 'first';
+var addressTmpl = `There is proof that ${name} shot ${whenShot}`;
+
+var multiline = `Han Solo is confronted by the bounty hunter Greedo
+  at the Mos Eisley Cantina. The initial change was made to the 1997
+  Star Wars Trilogy Special Edition re-release.`;
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Arrow functions</h2>
+          <pre><code data-trim contenteditable>
+function printAwesomeMovies (movies) {
+  return movies
+           .filter(m => m.genre === 'Adventure')
+           .map(m => m.title)
+           .each(m => console.log(m));
+}
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Arrow functions</h2>
+          <pre><code data-trim contenteditable>
+function* naturalNumbers() {
+  let current = 0;
+  while (true) {
+    yield current++;
+  }
+}
+let seq = naturalNumbers();
+assert(seq.next() === 0);
+assert(seq.next() === 1);
+assert(seq.next() === 2);
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Arrow functions - <a href="http://tasks.org/">taskjs.org</a></h2>
+          <pre><code data-trim contenteditable>
+spawn(function*() {
+    var data = yield $.ajax(url);
+    $('#result').html(data);
+    var status = $('#status').html('Download complete.');
+    yield status.fadeIn().promise();
+    yield sleep(2000);
+    status.fadeOut();
+});
+          </code></pre>
+           Every time the task yields a promise, 
+           the scheduler blocks the task until the promise is fulfilled.
+        </section>
+
+      <section>
+          <h2>Arrow functions - <a href="http://tasks.org/">taskjs.org</a></h2>
+          <pre><code data-trim contenteditable>
+spawn(function*() {
+    var data = yield $.ajax(url);
+    $('#result').html(data);
+    var status = $('#status').html('Download complete.');
+    yield status.fadeIn().promise();
+    yield sleep(2000);
+    status.fadeOut();
+});
+          </code></pre>
+           Every time the task yields a promise, 
+           the scheduler blocks the task until the promise is fulfilled.
+        </section>
+        
+        <section>
+          <h2>Proxies</h2>
+          <pre><code data-trim contenteditable> 
+var actor = { name: 'Harrison Ford', salary: 0 };
+ 
+var interceptor = {
+  set: function (receiver, property, value) {
+    console.log(property, 'is changed to', value);
+    receiver[property] = value;
+  }
+};
+ 
+actor = Proxy(actor, interceptor);
+          </code></pre>
+        </section>
+        
+        
+        <section>
+          <h2>A whole lot more…</h2>
+          <ul>
+            <li>Block scoping (<code>let</code>)</li>
+            <li>Classes and modules</li>
+            <li>Array comprehensions</li>
+            <li><code>for…of</code></li>
+            <li><code>const</code></li>
+            <li><code>Object.mixin()</code></li>
+            <li><code>Map()</code> and <code>Set()</code></li>
+          </ul>
+        </section>
+
+       
+        <section>
+          <h2>I WANT DIS NOU</h2>
+          <ol>
+            <li class="fragment">
+              <a href="https://gist.github.com/Raynos/1665192">
+                Shims
+              </a>
+            </li>
+            <li class="fragment">
+              Transpilers (<a href="https://code.google.com/p/traceur-compiler/">Google Traceur</a>)
+            </li>
+            <li>Node: <code>--harmony</code></li>
+          </ol>
+        </section>
+        
+        <section>
+          <h1>FIN</h1>
+        </section>
+        
+        <section>
+          <h2>Sources</h2>
+          <ul>
+            <li><a href="http://es6isnigh.com/">es6isnigh.com</a></li>
+            <li>
+              <a href="http://oredev.org/2013/wed-fri-conference/the-next-version-of-javascript-es6-on-the-frontend-in-the-real-world">
+                Öredev 2013: ES6 on the frontend, in the real world
+              </a>
+            </li>
+            <li><a href="http://ariya.ofilabs.com">ariya.ofilabs.com</a></li>
+          </ul>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/leap/leap.js', async: true }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
