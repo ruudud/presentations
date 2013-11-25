@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML and CSS playground</title>
+    <link rel="stylesheet" href="common.css" type="text/css" />
+  </head>
+  <body>
+
+    <h1>position</h1> 
+
+    <section>
+      <div class="first" style="position: static">
+        position: static
+      </div>
+      <div class="first" style="position: relative; left: 20px;">
+        position: relative<br/>
+        left: 20px
+      </div>
+      <div class="first" style="position: relative; width: 300px;">
+        position: relative
+        <div class="second bg" style="position: absolute; right: 20px; top: 0">
+          position: absolute;<br/>
+          right: 20px<br/>
+          top: 0
+        </div>
+      </div>
+      <div class="third bg" style="position: fixed; top: 5px; right: 5px;">
+        position: fixed<br/>
+        top: 5px<br/>
+        right: 5px
+      </div>
+    </section>
+
+    <section>
+      <h2>Prøv selv!</h2>
+      <div class="first" style="width: 500px; height: 250px;">
+        <div class="bg" style="width: 120px; height: 100px; border-radius: 10px;">
+          Sett meg nede til høyre.<br/>
+          Bonus: midtstill meg horisontalt OG vertikalt.
+        </div>
+      </div>
+    </section>
+
+    <p class="right"><a href="float.html">Gå videre →</a></p>
+
+  </body>
+</html>

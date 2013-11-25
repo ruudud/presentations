@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML and CSS playground</title>
+    <link rel="stylesheet" href="common.css" type="text/css" />
+  </head>
+  <style>
+    .container {
+      overflow: auto;
+    }
+    .easterEgg {
+      display: none;
+    }
+    .container .left {
+      display: none;
+    }
+    .container .easterEgg {
+      display: block;
+      float: left;
+      width: 100px;
+      height: 100px;
+    }
+    .left {
+      width: 45%;
+      float: left;
+    }
+    .right {
+      width: 45%;
+      float: right;
+    }
+    .clear {
+      clear: both;
+    }
+    header, section, aside, footer {
+      box-sizing: border-box;
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 0;
+    }
+  </style>
+  <body>
+    <h1>float</h1>
+
+    <header class="bg">
+      <code>&lt;header&gt;</code>
+    </header>
+    <section class="first left">
+      <code>&lt;section&gt;</code><br/>
+      <p>float: left</p>
+      <p>width: 45%</p>
+    </section>
+    <aside class="second right">
+      <code>&lt;aside&gt;</code><br/>
+      <p>float: right</p>
+      <p>width: 45%</p>
+    </aside>
+    <footer class="bg clear">
+      <code>&lt;header&gt;</code>
+    </footer>
+
+    <section>
+      <h2>Prøv selv!</h2>
+      <div class="first">
+        Dette var da en rar container.
+        <div class="second bg left" style="width: 100px; height: 100px;">
+          Hvorfor fyller ikke foreldrenode ut høyden??
+        </div>
+        <div class="third easterEgg bg">
+          Sånn ja, mye bedre.
+        </div>
+      </div>
+      <p>Oppgave: Legg til klassen <code>container</code> på
+      innrammings-<code>div</code>.
+    </section>
+
+    <p class="right"><a href="tasks.html">Gå videre →</a></p>
+
+  </body>
+</html>

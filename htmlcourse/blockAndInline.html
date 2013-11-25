@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML and CSS playground</title>
+    <link rel="stylesheet" href="common.css" type="text/css" />
+  </head>
+  <style>
+    .ib {
+      display: inline-block;
+      height: 75px;
+    }
+  </style>
+  <body>
+
+    <h1>block vs inline</h1> 
+    <section>
+      <h2>block</h2> 
+      <div class="first">
+        display: block
+      </div>
+      <div class="first">
+        display: block
+        <div class="second">
+          display: block
+        </div>
+        <div class="third">
+          display: block
+        </div>
+      </div>
+      
+      <div class="first bg" style="width: 400px; height: 300px">
+        Et blokkelement kan ha en bredde og høyde, men tar opp hele
+        horisontale plassen den har tilgjengelig.
+      </div>
+      <div class="second bg" style="width: 300px; height: 100px">
+        …så neste element blir lagt på neste rad uansett.
+      </div>
+    </section>
+
+    <section>
+      <h2>inline</h2>
+      <p>
+        Dette er vanlig tekst inni en paragraf, med to <code>span</code>
+        elementer som følger etter.
+        <span class="inline">display: inline</span>
+        <span class="inline">display: inline</span>
+        inline elementer kan ikke ha høyde og bredde, det er linja og
+        tekst-stiler som bestemmer hvordan ting skal se ut.
+      </p>
+    </section>
+
+    <section>
+      <h2>En mix av inline og block</h2>
+      <div class="first">
+        display: block
+        <span class="inline">display: inline</span>
+        <div class="second">
+          display: block
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>inline-block</h2>
+      <p>— aka det beste fra to verdener</p>
+      <div class="first">
+        display: block
+        <div class="second ib">
+          display: inline-block
+        </div>
+        <div class="third ib">
+          display: inline-block
+        </div>
+      </div>
+      </section>
+
+      <section>
+        <h2>Prøv selv!</h2>
+        <div class="first">
+          <div class="bg">
+            Gi meg en bredde og en høyde.<br/>
+            Bonus: midtstill meg.
+          </div>
+          <div class="bg">
+            Meg kan du skjule helt.
+          </div>
+        </div>
+      </section>
+
+    <p class="right"><a href="position.html">Gå videre →</a></p>
+  </body>
+</html>

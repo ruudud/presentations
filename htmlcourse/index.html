@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML and CSS playground</title>
+    <link rel="stylesheet" href="common.css" type="text/css" />
+  </head>
+  <style>
+    .boxModel {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border: 3px solid #0f0f0f;
+      padding: 20px;
+      margin: 20px;
+    }
+    .innerBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      background-color: whiteSmoke;
+      width: 100px;
+      height: 100px;
+      padding: 0;
+    }
+  </style>
+  <body>
+    <h1>boks-modellen</h1>
+
+    <section>
+      <img src="gfx/box-model.png"/>
+      <div class="boxModel">b: 200px, h: 200px</div>
+      <div class="boxModel boxed">
+        b: 200px, h: 200px<br/>
+        box-sizing: border-box
+      </div>
+    </section>
+
+    <p class="right"><a href="blockAndInline.html">Gå videre →</a></p>
+  </body>
+</html>
