@@ -1,3 +1,9 @@
+# ES6
+
+http://ruudud.github.com/presentations/es6
+
+Some new things from ES6.
+
 # Backbone Marionette
 
 http://ruudud.github.com/presentations/marionette
