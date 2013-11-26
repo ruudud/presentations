@@ -91,24 +91,37 @@ var evenMoreSpecificDate = [...dateFields, 18, 20];
           <pre><code data-trim contenteditable>
 var [firstName, lastName] = person.getName();
 
-var re = /([a-z]+)(\s)(.*)([^a-z])/;
-var [, hello, space, world, bang] = re.exec("hello world!");
-
 var [first, ...allButFirst] = document.querySelectorAll("section");
 
 function runTests({ reporter, ui }) {}
 runTest({ reporter: "dot", ui: "tdd"})
           </code></pre>
         </section>
+
+        <section>
+          <h2>Destructuring II</h2>
+          <pre><code data-trim contenteditable>
+var re = /([a-z]+)(\s)(.*)([^a-z])/;
+var [, hello, space, world, bang] = re.exec("hello world!");
+          </code></pre>
+        </section>
         
         <section>
           <h2>Default arguments</h2>
+          <h4>Before</h4>
           <pre><code data-trim contenteditable>
 var myFunc = function (size) {
   size = size || 'XXL';
 };
-
           </code></pre>
+          <div class="fragment">
+          <h4>Now</h4>
+          <pre><code data-trim contenteditable>
+var myFunc = function (size = 'XXL') {
+  // thusly
+};
+          </code></pre>
+          </div>
         </section>
         
         <section>
@@ -116,10 +129,12 @@ var myFunc = function (size) {
           <pre><code data-trim contenteditable>
 var name = 'Han',
 var whenShot = 'first';
+
 var addressTmpl = `There is proof that ${name} shot ${whenShot}`;
 
-var multiline = `Han Solo is confronted by the bounty hunter Greedo
-  at the Mos Eisley Cantina. The initial change was made to the 1997
+var multiline = `${name} Solo is confronted by the
+  bounty hunter Greedo at the Mos Eisley Cantina.
+  The initial change was made to the 1997
   Star Wars Trilogy Special Edition re-release.`;
           </code></pre>
         </section>
@@ -127,17 +142,20 @@ var multiline = `Han Solo is confronted by the bounty hunter Greedo
         <section>
           <h2>Arrow functions</h2>
           <pre><code data-trim contenteditable>
-function printAwesomeMovies (movies) {
-  return movies
-           .filter(m => m.genre === 'Adventure')
-           .map(m => m.title)
-           .each(m => console.log(m));
+function printAwesomeMovies(url) {
+
+  getMovies(url, (xhr, movies) => { 
+
+    movies.filter(m => m.genre === 'Adventure')
+          .map(m => { title: m.title })
+          .each(m => console.log(m));
+  };
 }
           </code></pre>
         </section>
         
         <section>
-          <h2>Arrow functions</h2>
+          <h2>Generators</h2>
           <pre><code data-trim contenteditable>
 function* naturalNumbers() {
   let current = 0;
@@ -153,7 +171,7 @@ assert(seq.next() === 2);
         </section>
         
         <section>
-          <h2>Arrow functions - <a href="http://tasks.org/">taskjs.org</a></h2>
+          <h2>Generators II - <a href="http://tasks.org/">taskjs.org</a></h2>
           <pre><code data-trim contenteditable>
 spawn(function*() {
     var data = yield $.ajax(url);
@@ -164,23 +182,7 @@ spawn(function*() {
     status.fadeOut();
 });
           </code></pre>
-           Every time the task yields a promise, 
-           the scheduler blocks the task until the promise is fulfilled.
-        </section>
-
-      <section>
-          <h2>Arrow functions - <a href="http://tasks.org/">taskjs.org</a></h2>
-          <pre><code data-trim contenteditable>
-spawn(function*() {
-    var data = yield $.ajax(url);
-    $('#result').html(data);
-    var status = $('#status').html('Download complete.');
-    yield status.fadeIn().promise();
-    yield sleep(2000);
-    status.fadeOut();
-});
-          </code></pre>
-           Every time the task yields a promise, 
+          Every time the task yields a promise,<br>
            the scheduler blocks the task until the promise is fulfilled.
         </section>
         
@@ -198,6 +200,7 @@ var interceptor = {
  
 actor = Proxy(actor, interceptor);
           </code></pre>
+          <p class="fragment">get, has, keys, deleteProperty…</p>
         </section>
         
         
@@ -226,12 +229,15 @@ actor = Proxy(actor, interceptor);
             <li class="fragment">
               Transpilers (<a href="https://code.google.com/p/traceur-compiler/">Google Traceur</a>)
             </li>
-            <li>Node: <code>--harmony</code></li>
+            <li class="fragment">Node: <code>--harmony</code></li>
           </ol>
         </section>
         
         <section>
           <h1>FIN</h1>
+          <h3 class="fragment">
+            <a href="http://ruudud.github.io/presentations/es6">ruudud.github.io/presentations/es6</a>
+          </h3>
         </section>
         
         <section>
