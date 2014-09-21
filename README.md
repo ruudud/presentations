@@ -1,19 +1,20 @@
 # ES6
 
-http://ruudud.github.com/presentations/es6
+https://ruudud.github.io/presentations/es6
+https://ruudud.github.io/presentations/es6-jz2014
 
 Some new things from ES6.
 
 # Backbone Marionette
 
-http://ruudud.github.com/presentations/marionette
+https://ruudud.github.io/presentations/marionette
 
 Views in a large-scale Backbone app demands conventions and structure. Get some
 for free with [Backbone Marionette](http://marionettejs.com/).
 
 # Reindeer
 
-http://ruudud.github.com/presentations/rein
+https://ruudud.github.io/presentations/rein
 
  * Presentation about reindeers, offline web app
  * What can OSS learn from Lean Startup techniques?
@@ -21,7 +22,7 @@ http://ruudud.github.com/presentations/rein
 
 # ZeroMQ
 
-http://ruudud.github.com/presentations/zeromq
+https://ruudud.github.io/presentations/zeromq
 
  * Introduction to [ZeroMQ]
  * What is messaging?
@@ -30,6 +31,6 @@ http://ruudud.github.com/presentations/zeromq
 
 # `git rebase` demystified
 
-http://ruudud.github.com/presentations/git-rebase-demystified/presentation.pdf
+https://ruudud.github.io/presentations/git-rebase-demystified/presentation.pdf
 
 In Norwegian.
