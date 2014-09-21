@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>ES6 - JavaZone 2014</title>
+
+    <meta name="description" content="ES6 er her, velkommen til fremtiden innen JavaScript">
+    <meta name="author" content="Pål Ruud">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/iterate.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+      .strike {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-state="inverted">
+          <h1>ES6 er her,</h1>
+          <h3>fremtiden innen JavaScript</h3>
+          <p>
+            <small><a href="https://ruudud.github.io/">Pål Ruud</a> / <a href="https://twitter.com/ruudud">@ruudud</a></small>
+          </p>
+        </section>
+
+        <section>
+          <h3>ES3 — 1999</h3>
+          <h3>ES5 — 2009</h3>
+          <h2>ES6 — <span class="strike">2014</span> 2015</h2>
+          <aside class="notes">
+            ES3 - RegExp + try/catch<br/>
+            ES5 - Array Methods + strict mode
+            ES6 feature frozen aug 2014
+          </aside>
+        </section>
+
+        <section>
+          <h2>Hva består ES6 av?</h2>
+          <ul>
+            <li>Block scoped vars</li>
+            <li><strong>Array comprehensions</strong></li>
+            <li>Template strings</li>
+            <li><strong>Lambda (=> functions)</strong></li>
+            <li>Promises</li>
+            <li><strong>Destructuring</strong></li>
+            <li>Classes</li>
+            <li><strong>Rest + Spread operators</strong></li>
+            <li>Proxy</li>
+            <li><strong>Generators</strong></li>
+            <li class="fragment">(Modules)</li>
+            <li class="fragment">…</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Array Comprehensions</h2>
+          <pre><code contenteditable>
+ 
+var squared = [ for (i of [1, 2, 3]) i * i ]; 
+// [1, 4, 9]
+
+
+[ for (x of [1, 2, 3]) for (y of [4, 5, 6]) (x * y) ];
+// [4, 5, 6, 8, 10, 12, 12, 15, 18]
+   
+          </code></pre>
+          <aside class="notes">
+            Kartesisk produkt
+          </aside>
+        </section>
+
+        <section>
+          <h2>Lambda Expressions</h2>
+          <pre><code contenteditable>
+
+var people = [
+  { firstName: "April", lastName: "O'Neil", human: true },
+  // …
+];
+
+// Før
+people.filter(function(p) {
+  return p.human;
+});
+
+// Nå
+people.filter( p => p.human );
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Lambda Expressions II</h2>
+          <pre><code contenteditable>
+
+people.map((p) => {
+  return { fullName: p.firstName + p.lastName };
+});
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Destructuring</h2>
+          <pre><code contenteditable>
+
+var [a, [b], c, d] = ['Hello', [', ', 'junk'], ['JavaZone!']];
+
+console.log(a + b + c);
+// Hello, JavaZone!
+
+          </code></pre>
+          <aside class="notes">
+            Nytting for bytting av to var,
+            flere returverdier fra en funksjon
+          </aside>
+        </section>
+
+        <section>
+          <h2>Destructuring II</h2>
+          <pre><code contenteditable>
+var people = [
+  { firstName: "April", lastName: "O'Neil", human: true },
+  // …
+];
+
+people.map(({ firstName, lastName }) => {
+  return { fullName: firstName + lastName }
+});
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Destructuring III</h2>
+          <pre><code contenteditable>
+
+function foo(requiredParam, { option1, option2 = 'bar' }) {
+
+  console.log(requiredParam, option1, option2);
+
+};
+
+foo(1, { option1: 'baz' });
+foo(2, { option1: 'baz', option2: 'qux' });
+
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Rest Parameters</h2>
+          <pre><code contenteditable>
+
+function withFirstNames(data, ...firstNames) {
+  return data.filter(p => {
+    return firstNames.indexOf(p.firstName) > -1;
+  });
+}
+
+withFirstNames(people, 'April', 'Raphael');
+
+          </code></pre>
+          <aside class="notes">
+            Erstatter bruk av arguments objektet
+          </aside>
+        </section>
+
+        <section>
+          <h2>Spread</h2>
+          <pre><code contenteditable>
+
+var toBeAdded = [ 
+  { firstName: 'Donatello' },
+  { firstName: 'Raphael' }
+];
+people.push(...toBeAdded);
+
+          </code></pre>
+          <aside class="notes">
+            Erstatter Function.prototype.apply
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generators (iterators)</h2>
+          <pre><code contenteditable>
+function* fibonacci() {
+    var [ prev, curr ] = [ 0, 1 ];
+    while (true) {
+        yield curr;
+        [ prev, curr ] = [ curr, prev + curr ];
+    }
+}
+
+var fib = fibonacci();
+fib.next();   // { value: 1, done: false }
+fib.next();   // { value: 1, done: false }
+fib.next();   // { value: 2, done: false }
+// …
+          </code></pre>
+          <aside class="notes">
+            Kan også bruke for … of
+          </aside>
+        </section>
+
+        <section>
+          <h2>Generators + Promises = task.js</h2>
+          <pre><code contenteditable>
+
+spawn(function*() {
+    var data = yield $.ajax(url);
+    $('#result').html(data);
+
+    var status = $('#status').text('Download complete.');
+    yield status.fadeIn().promise();
+
+    yield sleep(2000);
+    status.fadeOut();
+});
+
+          </code></pre>
+          <h3>www.taskjs.org</h3>
+        </section>
+
+        <section>
+          <h2>Transpiling + Shims</h2>
+          <ul>
+            <li><a href="https://github.com/google/traceur-compiler">Google Traceur</a></li>
+            <li><a href="http://thlorenz.github.io/es6ify/">es6ify</a> (Browserify transform)</li>
+            <li><a href="https://github.com/paulmillr/es6-shim/">github: paulmillr/es6-shim</a></li>
+          </ul>
+          <aside class="notes">
+            Plugins til Gulp / Grunt
+          </aside>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/leap/leap.js', async: true }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
